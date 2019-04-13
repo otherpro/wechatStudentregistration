@@ -1,0 +1,27 @@
+<view class="container">
+
+  <view class="cate-item">
+    <view class="h">
+      <text class="courseName">{{currentCategory.courseName}}</text>
+
+    </view>
+
+  </view>
+
+  <view class="cate-detail">
+    <view class="b">
+      <text class="desc">学分：{{currentCategory.credit}}</text>
+      <text class="desc">教室：{{currentCategory.room}}</text>
+      <text class="desc">节次：{{currentCategory.lesson}}</text>
+      <text class="desc">周次：{{currentCategory.week}}</text>
+      <text class="desc">课程人数：{{currentCategory.maxNum}}</text>
+    </view>
+    <view class="t">
+      <text class="desc">教师：{{teacher.teacherName}}</text>
+      <text class="desc">email:{{teacher.email}}</text>
+      <text class="desc">phone:{{teacher.phone}}</text>
+    </view>
+
+  </view>
+
+</view>

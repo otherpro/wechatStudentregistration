@@ -1,0 +1,94 @@
+<view class="container">
+
+  <!-- 判断为学生不显示form -->
+  <view wx:if="{{length > 5}}">学生</view>
+
+  <form wx:else bindsubmit="formSubmit">
+
+    <!-- 判断是管理员 -->
+    <view wx:if="true" class="form-box">
+      <view class="title">
+        <text>选课时间安排</text>
+      </view>
+
+      <view class="form-item">
+        <picker mode="date" value="{{date}}" start="2019-01-01" end="2020-01-01" bindchange="bindDateChange">
+          <view class="picker">
+            开始日期: {{date}}
+          </view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+          <view class="picker">
+            开始时间: {{time}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="title"></view>
+
+      <view class="form-item">
+        <picker mode="date" value="{{dateEnd}}" data-end="1" start="2019-01-01" end="2020-01-01" bindchange="bindDateChange">
+          <view class="picker">
+            结束日期: {{dateEnd}}
+          </view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <picker mode="time" value="{{timeEnd}}" data-end="1" start="09:01" end="21:01" bindchange="bindTimeChange">
+          <view class="picker">
+            结束时间: {{timeEnd}}
+          </view>
+        </picker>
+      </view>
+
+
+
+    </view>
+
+    <!-- 判断是教师 -->
+    <view wx:else class="form-box">
+
+      <view class="form-item">
+        <input class="courseName" value="{{username}}" bindinput="bindUsernameInput" placeholder="课程名称" auto-focus/>
+        <image wx:if="{{ username.length > 0 }}" id="clear-username" class="clear" src="/static/images/clear_input.png" catchtap="clearInput"></image>
+      </view>
+
+
+      <view class="form-item">
+        <!-- <input id="name" name="mobile" class="login-input" type="text" placeholder="周次 节次" /> -->
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker">
+            周{{multiArray[0][multiIndex[0]]}}，星期{{multiArray[1][multiIndex[1]]}}，节次{{multiArray[2][multiIndex[2]]}}
+          </view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <picker class="login-input" bindchange="bindRoomChange" value="{{index}}" range="{{room}}">
+          <view class="picker">
+            {{room[index]}}
+          </view>
+        </picker>
+      </view>
+      <view class="login-input">
+        <text class="login-input">上课人数</text>
+        <view class="body-view">
+          <slider bindchange="slider4change" min="50" max="200" show-value />
+        </view>
+      </view>
+      <view class="form-item-textarea">
+        <textarea id="name" name="mobile" class="login-input" type="text" placeholder="简介" />
+      </view>
+    </view>
+
+    <view class="cart-bottom">
+      <button class="reset" type="default" form-type="reset">清空</button>
+      <button class="submit" type="primary" formType="submit">发布</button>
+    </view>
+  </form>
+
+
+
+
+</view>

@@ -1,0 +1,75 @@
+<view class="container">
+
+  <view class="cate-item">
+    <view class="h">
+      <text class="courseName">{{currentCategory.courseName}}</text>
+      <text class="boxMessage">{{boxMessage}}</text>
+    </view>
+    <view class='tui-countdown-content' hidden="{{countDownHidden}}">
+      剩余
+      <text class='tui-conutdown-box'>{{countDown.day}}</text>天
+      <text class='tui-conutdown-box'>{{countDown.hou}}</text>时
+      <text class='tui-conutdown-box'>{{countDown.min}}</text>分
+      <text class='tui-conutdown-box tui-countdown-bg'>{{countDown.sec}}</text>秒
+    </view>
+  </view>
+
+
+  <!-- <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
+        <image class="img" src="{{iitem.list_pic_url}}" background-size="cover"></image>
+        <text class="name">{{iitem.name}}</text>
+        <text class="price">￥{{iitem.retail_price}}</text>
+      </navigator> -->
+  <view class="cate-detail">
+    <view class="b">
+      <text class="desc">学分：{{currentCategory.credit}}</text>
+      <text class="desc">教室：{{currentCategory.room}}</text>
+      <text class="desc">教师：{{currentCategory.teacherName}}</text>
+      <text class="desc">节次：{{currentCategory.lesson}}</text>
+      <text class="desc">周次：{{currentCategory.week}}</text>
+      <text class="desc">课程人数：{{currentCategory.leftNum+"/"+currentCategory.maxNum}}</text>
+      <text class="desc">结束时间：{{currentCategory.endTime}}</text>
+      
+
+    </view>
+  </view>
+
+  <button class="courseSelect" type="primary" plain='true'  hidden="{{courseHidden}}" bindtap="execution">选课</button>
+   <view class="cart-bottom" hidden="{{!courseHidden}}">
+      <button class="reset" type="default" >编辑</button>
+      <button class="submit" type="warn" >删除</button>
+    </view>
+
+
+
+</view>
+
+
+
+
+<!-- 
+<view class="container">
+    <view class="cate-nav">
+        <scroll-view scroll-x="true" class="cate-nav-body" style="width: 750rpx;" scroll-left="{{scrollLeft}}">
+            <view  wx:for="{{navList}}" class="item {{ id == item.id ? 'active' : ''}}" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate">
+                <view class="name">{{item.name}}</view>
+            </view>
+        </scroll-view>
+    </view>
+    <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height:{{scrollHeight}};">
+
+    <view class="cate-item">
+        <view class="h">
+            <text class="name">{{currentCategory.name}}</text>
+            <text class="desc">{{currentCategory.front_name}}</text>
+        </view>
+        <view class="b">
+            <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}"   url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex" >
+                <image class="img" src="{{iitem.list_pic_url}}" background-size="cover"></image>
+                <text class="name">{{iitem.name}}</text>
+                <text class="price">￥{{iitem.retail_price}}</text>
+            </navigator>
+        </view>
+    </view>
+    </scroll-view>
+</view> -->
