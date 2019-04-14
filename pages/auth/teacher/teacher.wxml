@@ -1,11 +1,11 @@
 <view class="container">
-<!-- 选课详情页 -->
+<!-- 教师信息详情页 -->
   <view class="cate-item">
     <view class="h">
       <text class="courseName">{{currentCategory.courseName}}</text>
       <text class="boxMessage">{{boxMessage}}</text>
     </view>
-    <view class='tui-countdown-content' hidden="{{countDownHidden}}">
+    <view class='tui-countdown-content' >
       剩余
       <text class='tui-conutdown-box'>{{countDown.day}}</text>天
       <text class='tui-conutdown-box'>{{countDown.hou}}</text>时
@@ -15,11 +15,6 @@
   </view>
 
 
-  <!-- <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
-        <image class="img" src="{{iitem.list_pic_url}}" background-size="cover"></image>
-        <text class="name">{{iitem.name}}</text>
-        <text class="price">￥{{iitem.retail_price}}</text>
-      </navigator> -->
   <view class="cate-detail">
     <view class="b">
       <text class="desc">学分：{{currentCategory.credit}}</text>
@@ -29,19 +24,13 @@
       <text class="desc">周次：{{currentCategory.week}}</text>
       <text class="desc">课程人数：{{currentCategory.leftNum+"/"+currentCategory.maxNum}}</text>
       <text class="desc">结束时间：{{currentCategory.endTime}}</text>
-
-
     </view>
   </view>
 
-  <button class="courseSelect" type="primary" plain='true' hidden="{{courseHidden}}" bindtap="execution">选课</button>
-  <view class="cart-bottom" hidden="{{!courseHidden}}">
-
-    <button class="edit" type="default" bindtap='edit'>编辑</button>
-    <button class="delete" type="warn" bindtap='delete'>删除</button>
+  <view class="cart-bottom" >
+    <button class="edit" type="default" bindtap='cancel'>返回</button>
+    <button class="delete" type="primary" bindtap='edit'>编辑</button>
   </view>
-
-
 
 </view>
 

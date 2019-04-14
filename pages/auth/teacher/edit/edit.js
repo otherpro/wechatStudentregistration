@@ -1,5 +1,6 @@
-var util = require('../../utils/util.js');
-var api = require('../../config/api.js');
+var util = require('../../../../utils/util.js');
+var api = require('../../../../config/api.js');
+
 Page({
   data: {
     // text:"这是一个页面"
@@ -19,9 +20,19 @@ Page({
     scrollTop: 0,
     scrollHeight: 0,
     page: 1,
-    size: 10000
+    size: 10000,
+    index: 2,
+    indexCredit: 2,
+    credit: ["1", "2", "3", "4", "5"],
+    room: ["一教202", "二教302", "实验楼505", "综合楼333"],
+    multiArray: [
+      ['1-16', '1-8', '8-16'],
+      ['一', '二', '三', '四', '五'],
+      ['01', '02', '03', '04', '05', '06', '07', '08']
+    ],
+    multiIndex: [0, 2, 3],
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
     console.info(options.courseSelectId);
@@ -31,7 +42,7 @@ Page({
       });
     }
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         that.setData({
           scrollHeight: res.windowHeight
         });
@@ -40,15 +51,12 @@ Page({
     this.getCategoryInfo();
     this.countDown();
   },
-  getCategoryInfo: function() {
-    wx.showLoading({
-      title: '加载中...',
-    });
+  getCategoryInfo: function () {
     let that = this;
     util.request(api.CourseSelectDetail, {
-        courseselectId: this.data.id
-      })
-      .then(function(res) {
+      courseselectId: this.data.id
+    })
+      .then(function (res) {
         if (res.errno == 0) {
           var startTime = new Date(res.data.startTime);
           var endTime = new Date(res.data.endTime);
@@ -77,28 +85,26 @@ Page({
         } else {
           //显示错误信息
         }
-        wx.hideLoading();
       });
+    wx.hideLoading();
   },
-  onReady: function() {
+  onReady: function () {
     // 页面渲染完成
-   
   },
-  onShow: function() {
+  onShow: function () {
     // 页面显示
     console.log(1);
-    
   },
-  onHide: function() {
+  onHide: function () {
     // 页面隐藏
   },
-  onUnload: function() {
+  onUnload: function () {
     // 页面关闭
   },
-  getNowTime: function() {
+  getNowTime: function () {
     let that = this;
     util.request(api.CourseSelectTime, {})
-      .then(function(res) {
+      .then(function (res) {
         if (res.errno == 0) {
           that.setData({
             nowTime: res.data.nowTime,
@@ -109,10 +115,10 @@ Page({
         }
       });
   },
-  timeFormat: function(param) { //小于10的格式化函数
+  timeFormat: function (param) { //小于10的格式化函数
     return param < 10 ? '0' + param : param;
   },
-  countDown: function() {
+  countDown: function () {
     let newTime = new Date().getTime();
     let endTime = new Date(this.data.currentCategory.endTime).getTime();
     let startTime = new Date(this.data.currentCategory.startTime).getTime();
@@ -168,102 +174,57 @@ Page({
     })
     setTimeout(this.countDown, 1000);
   },
-  handlerSeckill: function() {
-    //显示开始秒杀
-    //获取md5
-    let that = this;
-    util.request(api.CourseSelectExposer, {
-        courseselectId: that.data.id,
-        md5: that.data.md5
-      })
-      .then(function(res) {
-        //服务端无报错
-        if (res.errno == 0) {
-          //成功秒杀
-          if (res.data.exposed) {
-            //设置md5同时点亮秒杀按钮标志
-            that.setData({
-              md5: res.data.md5,
-            });
-          } else {
-            //未开始秒杀 重新显示倒计时 计算偏差 需要显示倒计时标志位
-            that.setData({
-              startTime: res.data.start,
-              endTime: res.data.end,
-              nowTime: res.data.now,
-            });
-            that.countDowm();
-          }
-        } else {
-          //显示错误信息
-        }
-      });
+ 
+  cancel: function () {
+          wx.redirectTo({
+            url: '/pages/category/category?courseSelectId=' + this.data.id,
+          })
   },
-  execution: function() {
-
-    let that = this;
-    util.request(api.CourseSelectExecute, {
-      courseselectId: that.data.id,
-      md5: that.data.md5
-    })
-      .then(function (res) {
-        if (res.errno == 0) {
-          //弹窗显示信息
-          that.setData({
-            killResult: res.data,
-          });
-        } else {
-          //显示错误信息
-        }
-      });
+  save: function () {
+    let that=this;
     wx.showModal({
-      title: '选课',
-      content: this.data.killResult.message,
-      showCancel: false
-    });
-    return false;
-  },
-  switchCate: function(event) {
-    if (this.data.id == event.currentTarget.dataset.id) {
-      return false;
-    }
-    var that = this;
-    var clientX = event.detail.x;
-    var currentTarget = event.currentTarget;
-    if (clientX < 60) {
-      that.setData({
-        scrollLeft: currentTarget.offsetLeft - 60
-      });
-    } else if (clientX > 330) {
-      that.setData({
-        scrollLeft: currentTarget.offsetLeft
-      });
-    }
-    this.setData({
-      id: event.currentTarget.dataset.id
-    });
-
-    this.getCategoryInfo();
-  },
-  edit:function(){
-    wx.redirectTo({
-      url: '/pages/category/edit/edit?courseSelectId=' + this.data.id,
-    })
-  },
-  delete:function(){
-
-    let that = this;
-    wx.showModal({
-      title: '删除课程',
-      content: '删除成功',
+      title: '保存信息',
+      content: '修改成功',
       showCancel: false,
       success(res) {
         if (res.confirm) {
-          wx.switchTab({
-            url: '/pages/catalog/catalog'
+          wx.redirectTo({
+            url: '/pages/category/category?courseSelectId=' + that.data.id,
           })
         }
       }
+    })
+    // wx.showToast({
+    //   title: '成功',
+    //   icon: 'success',
+    // });
+    // setTimeout(function () {
+    //   wx.hideToast({
+    //     complete(res) {
+    //       wx.redirectTo({
+    //         url: '/pages/category/category?courseSelectId=' + that.data.id,
+    //       })
+    //     }
+    //   })
+    // }, 2000)
+   
+ 
+
+  },
+
+  bindRoomChange: function (e) {
+    this.setData({
+      index: e.detail.value
+    })
+  },
+  bindCreditChange: function (e) {
+    this.setData({
+      indexCredit: e.detail.value
+    })
+  },
+  bindMultiPickerChange: function (e) {
+    this.setData({
+      multiIndex: e.detail.value
     })
   },
 })

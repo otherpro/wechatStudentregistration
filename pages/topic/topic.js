@@ -32,8 +32,8 @@ Page({
       that.setData({
         currentCategory: res.data,
       });
-    });
     wx.hideLoading();
+    });
   },
   initGrade: function() {
     let newTime = new Date();

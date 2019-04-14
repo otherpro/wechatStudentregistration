@@ -1,5 +1,5 @@
 <view class="container">
-<!-- 选课课程编辑页面 -->
+
   <view class="cate-item">
     <view class="h">
       <text class="courseName">{{currentCategory.courseName}}</text>

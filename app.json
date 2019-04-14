@@ -1,11 +1,16 @@
 {
   "pages": [
+    "pages/auth/teacher/teacher",
     "pages/category/category",
+    "pages/category/edit/edit",
+    "pages/auth/student/student",
+    "pages/auth/teacher/edit/edit",
+    "pages/auth/student/edit/edit",
     "pages/cart/cart",
+    "pages/catalog/catalog",
+    "pages/index/index",
     "pages/topic/topic",
     "pages/courseDetail/courseDetail",
-    "pages/index/index",
-    "pages/catalog/catalog",
     "pages/newGoods/newGoods",
     "pages/hotGoods/hotGoods",
     "pages/ucenter/address/address",

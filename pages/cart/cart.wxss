@@ -70,7 +70,7 @@ padding:12px;
     border-bottom: 1px solid #d9d9d9;
 }
 
-.form-item .courseName, .form-item .picker, .form-item .code{
+.form-item .courseName,.credit, .form-item .picker, .form-item .code{
     position: absolute;
     top: 26rpx;
     left: 0;

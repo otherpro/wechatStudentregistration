@@ -5,17 +5,9 @@ var app = getApp();
 
 Page({
   data: {
-    cartGoods: [],
-    cartTotal: {
-      "goodsCount": 0,
-      "goodsAmount": 0.00,
-      "checkedGoodsCount": 0,
-      "checkedGoodsAmount": 0.00
-    },
-    isEditCart: false,
-    checkedAllStatus: false,
-    editCartList: [],
     index: 0,
+    indexCredit: 0,
+    credit: ["1", "2", "3", "4", "5"],
     room: ["一教202", "二教302", "实验楼505", "综合楼333"],
     date: '2019-04-20',
     time: '16:00',
@@ -26,6 +18,7 @@ Page({
       ['一', '二', '三', '四', '五'],
       ['01', '02', '03', '04', '05', '06', '07', '08']
     ],
+    multiIndex: [0, 0, 0],
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -279,6 +272,11 @@ Page({
   bindRoomChange: function(e) {
     this.setData({
       index: e.detail.value
+    })
+  },
+  bindCreditChange: function (e) {
+    this.setData({
+      indexCredit: e.detail.value
     })
   },
   bindDateChange: function(e) {
