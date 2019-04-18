@@ -4,7 +4,7 @@ Page({
   data: {
     // text:"这是一个页面"
     navList: [],
-    id: "1",
+    teacherId: "1",
     timeViewFlag: 0, //倒计时隐藏显示标志
     killResult: {}, //返回的对象信息
     boxMessage: "",
@@ -12,7 +12,8 @@ Page({
     countDownHidden: false,
 
     countDown: {},
-
+    academyId:"1",
+    academy:{},
     currentCategory: {},
     scrollLeft: 0,
     scrollTop: 0,
@@ -23,10 +24,10 @@ Page({
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
-    console.info(options.id);
-    if (options.id) {
+    console.info(options.teacherId);
+    if (options.teacherId) {
       that.setData({
-        id: options.id,
+        id: options.teacherId,
       });
     }
     wx.getSystemInfo({
@@ -44,13 +45,28 @@ Page({
       title: '加载中...',
     });
     let that = this;
+    let academyId="0";
     util.request(api.TeacherDetail, {
-        id: this.data.id
+      teacherId: this.data.teacherId
       })
       .then(function(res) {
         if (res.errno == 0) {
           that.setData({
             currentCategory: res.data,
+            academyId: res.data.academyId,
+          });
+           
+        } else {
+          //显示错误信息
+        }
+      });
+    util.request(api.AcademyDetail, {
+      academyId: that.data.academyId,
+    })
+      .then(function (res) {
+        if (res.errno == 0) {
+          that.setData({
+            academy: res.data,
           });
         } else {
           //显示错误信息
@@ -75,7 +91,7 @@ Page({
 
   edit: function() {
     wx.redirectTo({
-      url: '/pages/auth/teacher/edit/edit?id=' + this.data.id,
+      url: '/pages/auth/teacher/edit/edit?teacherId=' + this.data.teacherId,
     })
   },
   cancel: function() {

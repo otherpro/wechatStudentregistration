@@ -12,6 +12,7 @@ module.exports = {
   CourseDetail: ApiRootUrl + 'course/detail', //课程
   CourseDelete: ApiRootUrl + 'course/delete', //课程
   CourseUpdate: ApiRootUrl + 'course/update', //课程
+  CourseAdd: ApiRootUrl + 'course/add', //课程
 
   StudentList: ApiRootUrl + 'student/list', //所有学生进行选择
   StudentDetail: ApiRootUrl + 'student/detail', //学生
@@ -30,21 +31,24 @@ module.exports = {
 
 
   CourseSelectDelete: ApiRootUrl + 'courseSelect/delete', //抢课
-  CourseSelectUpdate: ApiRootUrl + 'courseSelect/update', //抢课
+  CourseSelectUpdate: ApiRootUrl + 'courseSelectId/update', //抢课
+  CourseSelectAdd: ApiRootUrl + 'courseSelect/add', //抢课
+  CourseSelectUpdateDate: ApiRootUrl + 'courseSelect/updateDate', //抢课时间增加 删除  修改
 
-  CourseSelectList: ApiRootUrl + 'courseselect/list', //查询课程
-  CourseSelectDetail: ApiRootUrl + 'courseselect/detail', //课程详细信息
-  CourseSelectExposer: ApiRootUrl + 'courseselect/exposer', //抢课接口
-  CourseSelectExecute: ApiRootUrl + 'courseselect/execution', //提交课程选择
-  CourseSelectTime: ApiRootUrl + 'courseselect//time/now', //查询系统时间
+  CourseSelectList: ApiRootUrl + 'courseSelect/list', //查询课程
+  CourseSelectDetail: ApiRootUrl + 'courseSelect/detail', //课程详细信息
+  CourseSelectExposer: ApiRootUrl + 'courseSelect/exposer', //抢课接口
+  CourseSelectExecute: ApiRootUrl + 'courseSelect/execution', //提交课程选择
+  CourseSelectTime: ApiRootUrl + 'courseSelect//time/now', //查询系统时间
 
 
+  AuthLoginByWeixin: ApiRootUrl + 'auth/loginByWeixin', //微信登录
+  AuthLoginByAccount: ApiRootUrl + 'auth/loginByAccount', //账号登录
 
   IndexUrl: ApiRootUrl + 'index/index', //首页数据接口
   CatalogList: ApiRootUrl + 'catalog/index',  //分类目录全部分类数据接口
   CatalogCurrent: ApiRootUrl + 'catalog/current',  //分类目录当前分类数据接口
 
-  AuthLoginByWeixin: ApiRootUrl + 'auth/loginByWeixin', //微信登录
 
   GoodsCount: ApiRootUrl + 'goods/count',  //统计商品总数
   GoodsList: ApiRootUrl + 'goods/list',  //获得商品列表

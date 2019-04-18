@@ -1,2 +1,36 @@
-<!--pages/auth/student/student.wxml-->
-<text>pages/auth/student/student.wxml</text>
+<view class="container">
+  <!-- 教师信息详情页 -->
+  
+  <view class="cate-item">
+    <view class="h">
+      <text class="courseName">{{currentCategory.studentName}}</text>
+    </view>
+    <view class='tui-countdown-content'>
+      <text class='tui-conutdown-box'>id:{{currentCategory.sno}}</text>
+    </view>
+  </view>
+
+  <view class="cate-detail">
+    <view class="b">
+      <view class="form-item">
+        <text class="desc">学院：{{academy.academyName}}</text>
+      </view>
+      <view class="form-item">
+        <text class="desc">电话：{{currentCategory.phone}}</text>
+      </view>
+      <view class="form-item">
+        <text class="desc">email：{{currentCategory.email}}</text>
+      </view>
+      <view class="form-item">
+        <text class="desc">学生状态：在读</text>
+      </view>
+      <!-- <text class="desc">简介：{{currentCategory.remarks}}</text> -->
+    </view>
+  </view>
+
+  <view class="cart-bottom">
+    <button class="edit" type="default" bindtap='cancel'>返回</button>
+    <button class="delete" type="primary" bindtap='edit'>编辑</button>
+  </view>
+
+</view>

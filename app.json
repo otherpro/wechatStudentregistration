@@ -1,13 +1,14 @@
 {
   "pages": [
-    "pages/auth/teacher/teacher",
-    "pages/category/category",
-    "pages/category/edit/edit",
-    "pages/auth/student/student",
-    "pages/auth/teacher/edit/edit",
-    "pages/auth/student/edit/edit",
     "pages/cart/cart",
+    "pages/ucenter/index/index",
     "pages/catalog/catalog",
+    "pages/category/edit/edit",
+    "pages/category/category",
+    "pages/auth/student/student",
+    "pages/auth/student/edit/edit",
+    "pages/auth/teacher/edit/edit",
+    "pages/auth/teacher/teacher",
     "pages/index/index",
     "pages/topic/topic",
     "pages/courseDetail/courseDetail",
@@ -27,7 +28,6 @@
     "pages/auth/reset/reset",
     "pages/pay/pay",
     "pages/payResult/payResult",
-    "pages/ucenter/index/index",
     "pages/comment/comment",
     "pages/commentPost/commentPost",
     "pages/topicComment/topicComment",
@@ -65,13 +65,13 @@
         "pagePath": "pages/catalog/catalog",
         "iconPath": "static/images/ic_menu_sort_nor.png",
         "selectedIconPath": "static/images/ic_menu_sort_pressed.png",
-        "text": "选课安排"
+        "text": "选课进程"
       },
       {
         "pagePath": "pages/cart/cart",
         "iconPath": "static/images/icon_collect.png",
         "selectedIconPath": "static/images/icon_collect_checked.png",
-        "text": "课程信息"
+        "text": "选课编辑"
       },
       {
         "pagePath": "pages/ucenter/index/index",

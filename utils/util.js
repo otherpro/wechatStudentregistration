@@ -25,11 +25,12 @@ function request(url, data = {}, method = "GET") {
   return new Promise(function (resolve, reject) {
     wx.request({
       url: url,
-      data: data,
+      data:data ,
       method: method,
       header: {
         'Content-Type': 'application/json',
-        'X-Nideshop-Token': wx.getStorageSync('token')
+        'X-Nideshop-Token': "1"
+        // 'X-Nideshop-Token': wx.getStorageSync('token')
       },
       success: function (res) {
         console.log("success");

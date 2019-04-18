@@ -1,5 +1,7 @@
 <view class="container">
 <!-- 选课课程编辑页面 -->
+<!-- 管理员进行编辑 -->
+<!-- 后续可能通过判断当前课程是否对应教师 进入当前界面  -->
   <view class="cate-item">
     <view class="h">
       <text class="courseName">{{currentCategory.courseName}}</text>
@@ -42,7 +44,7 @@
       <view class="login-input">
         <text class="login-input">上课人数</text>
         <view class="body-view">
-          <slider value="{{currentCategory.maxNum}}" bindchange="slider4change" min="30" max="100" show-value />
+          <slider value="{{currentCategory.maxNum}}" bindchange="sliderchange" min="30" max="100" show-value />
         </view>
       </view>
     </view>

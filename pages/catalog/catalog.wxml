@@ -1,3 +1,4 @@
+<!--选课安排 显示学院  按照学院显示当前正在进行的选课 -->
 <view class="container">
   <view class="search">
     <navigator url="/pages/search/search" class="input">

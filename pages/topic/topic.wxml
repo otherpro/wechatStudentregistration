@@ -1,3 +1,6 @@
+<!-- 课程表 -->
+<!-- 显示学生选择的课程 -->
+<!-- 显示教师教授的课程 -->
 <view class="container">
 <view class="section">
   <picker bindchange="bindGradeChange" value="{{index}}" range="{{grade}}">

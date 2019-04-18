@@ -1,19 +1,19 @@
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
+var app = getApp();
 Page({
   data: {
     // text:"这是一个页面"
+    myUserFlag: "",
     navList: [],
-    id: "4028b8816a072a80016a072aa2e70002",
+    id: "4028b8816a072a80016a072aa2b20001",
     md5: "",
     timeViewFlag: 0, //倒计时隐藏显示标志
     killResult: {}, //返回的对象信息
     boxMessage: "",
     courseHidden: true,
     countDownHidden: false,
-
     countDown: {},
-
     currentCategory: {},
     scrollLeft: 0,
     scrollTop: 0,
@@ -38,7 +38,7 @@ Page({
       }
     });
     this.getCategoryInfo();
-    this.countDown();
+    
   },
   getCategoryInfo: function() {
     wx.showLoading({
@@ -46,7 +46,7 @@ Page({
     });
     let that = this;
     util.request(api.CourseSelectDetail, {
-        courseselectId: this.data.id
+      courseSelectId: this.data.id
       })
       .then(function(res) {
         if (res.errno == 0) {
@@ -59,21 +59,7 @@ Page({
             'currentCategory.startTime': startTime,
             'currentCategory.endTime': endTime,
           });
-          //nav位置
-          let currentIndex = 0;
-          let navListCount = that.data.navList.length;
-          for (let i = 0; i < navListCount; i++) {
-            currentIndex += 1;
-            if (that.data.navList[i].id == that.data.id) {
-              break;
-            }
-          }
-          //如何影响？？
-          if (currentIndex > navListCount / 2 && navListCount > 5) {
-            that.setData({
-              scrollLeft: currentIndex * 60
-            });
-          }
+          that.countDown();
         } else {
           //显示错误信息
         }
@@ -82,12 +68,14 @@ Page({
   },
   onReady: function() {
     // 页面渲染完成
-   
+
   },
   onShow: function() {
     // 页面显示
-    console.log(1);
-    
+    this.setData({
+      myUserFlag: app.globalData.myUserFlag,
+    });
+
   },
   onHide: function() {
     // 页面隐藏
@@ -120,7 +108,7 @@ Page({
     // let endTime = new Date('2019/04/28 03:00:11').getTime();
     // console.info("-------");
     // console.info(newTime);
-    // console.info(endTime);
+    // console.info(this.data.currentCategory.endTime);
     // console.info(startTime);
 
     if (newTime > endTime) {
@@ -149,11 +137,13 @@ Page({
         min: this.timeFormat(min),
         sec: this.timeFormat(sec)
       }
+      setTimeout(this.countDown, 1000);
     } else { //活dongkaishi ，全部设置为'00'
+      this.handlerSeckill();
       this.setData({
         boxMessage: "选课进行中",
         countDownHidden: true,
-        courseHidden: false
+        courseHidden: false||app.myUserFlag!='s'
       })
       obj = {
         day: '00',
@@ -166,20 +156,17 @@ Page({
     this.setData({
       countDown: obj
     })
-    setTimeout(this.countDown, 1000);
   },
   handlerSeckill: function() {
-    //显示开始秒杀
+    //显示开始选课
     //获取md5
     let that = this;
     util.request(api.CourseSelectExposer, {
-        courseselectId: that.data.id,
-        md5: that.data.md5
+      courseSelectId: that.data.id,
       })
       .then(function(res) {
         //服务端无报错
         if (res.errno == 0) {
-          //成功秒杀
           if (res.data.exposed) {
             //设置md5同时点亮秒杀按钮标志
             that.setData({
@@ -200,70 +187,63 @@ Page({
       });
   },
   execution: function() {
-
     let that = this;
     util.request(api.CourseSelectExecute, {
-      courseselectId: that.data.id,
-      md5: that.data.md5
-    })
-      .then(function (res) {
+      courseSelectId: that.data.id,
+        md5: that.data.md5
+      })
+      .then(function(res) {
         if (res.errno == 0) {
-          //弹窗显示信息
-          that.setData({
-            killResult: res.data,
+          let result = res.data;
+          wx.showModal({
+            title: '选课',
+            content: result.stateInfo,
+            showCancel: false,
+             success(res) {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: '/pages/catalog/catalog'
+                })
+              }
+            }
           });
         } else {
           //显示错误信息
         }
       });
-    wx.showModal({
-      title: '选课',
-      content: this.data.killResult.message,
-      showCancel: false
-    });
     return false;
   },
-  switchCate: function(event) {
-    if (this.data.id == event.currentTarget.dataset.id) {
-      return false;
-    }
-    var that = this;
-    var clientX = event.detail.x;
-    var currentTarget = event.currentTarget;
-    if (clientX < 60) {
-      that.setData({
-        scrollLeft: currentTarget.offsetLeft - 60
-      });
-    } else if (clientX > 330) {
-      that.setData({
-        scrollLeft: currentTarget.offsetLeft
-      });
-    }
-    this.setData({
-      id: event.currentTarget.dataset.id
-    });
-
-    this.getCategoryInfo();
-  },
-  edit:function(){
+  edit: function() {
     wx.redirectTo({
       url: '/pages/category/edit/edit?courseSelectId=' + this.data.id,
     })
   },
-  delete:function(){
-
+  delete: function() {
     let that = this;
-    wx.showModal({
-      title: '删除课程',
-      content: '删除成功',
-      showCancel: false,
-      success(res) {
-        if (res.confirm) {
-          wx.switchTab({
-            url: '/pages/catalog/catalog'
+    util.request(api.CourseSelectDelete, {
+      courseSelectId: that.data.id,
+      })
+      .then(function(res) {
+        if (res.errno == 0) {
+          //弹窗显示信息
+          that.setData({
+            Result: res.data,
+          });
+          wx.showModal({
+            title: '删除课程',
+            content: '删除成功',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: '/pages/catalog/catalog'
+                })
+              }
+            }
           })
+        } else {
+          //显示错误信息
         }
-      }
-    })
+      });
   },
 })

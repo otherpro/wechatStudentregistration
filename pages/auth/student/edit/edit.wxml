@@ -1,36 +1,22 @@
 <view class="container">
+  <!-- 选课课程编辑页面 -->
 
   <view class="cate-item">
     <view class="h">
-      <text class="courseName">{{currentCategory.courseName}}</text>
-      <text class="boxMessage">{{boxMessage}}</text>
+      <text class="courseName">{{currentCategory.studentName}}</text>
     </view>
-    <view class='tui-countdown-content' hidden="{{countDownHidden}}">
-      剩余
-      <text class='tui-conutdown-box'>{{countDown.day}}</text>天
-      <text class='tui-conutdown-box'>{{countDown.hou}}</text>时
-      <text class='tui-conutdown-box'>{{countDown.min}}</text>分
-      <text class='tui-conutdown-box tui-countdown-bg'>{{countDown.sec}}</text>秒
+    <view class='tui-countdown-content'>
+      <text class='tui-conutdown-box'>no:{{currentCategory.sno}}</text>
     </view>
   </view>
+
   <view class="cate-detail">
-
- <view  class="form-box">
-
-  
+    <view class="form-box">
      <view class="form-item">
-        <picker class="login-input" bindchange="bindCreditChange" value="{{indexCredit}}" range="{{credit}}">
-          <view class="picker">
-            {{credit[indexCredit]}}学分
-          </view>
-        </picker>
+       <input value="{{currentCategory.phone}}"/>
       </view>
       <view class="form-item">
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-          <view class="picker">
-            周{{multiArray[0][multiIndex[0]]}}，星期{{multiArray[1][multiIndex[1]]}}，节次{{multiArray[2][multiIndex[2]]}}
-          </view>
-        </picker>
+        <input value="{{currentCategory.email}}"/>
       </view>
       <view class="form-item">
         <picker class="login-input" bindchange="bindRoomChange" value="{{index}}" range="{{room}}">
@@ -39,17 +25,10 @@
           </view>
         </picker>
       </view>
-      <view class="login-input">
-        <text class="login-input">上课人数</text>
-        <view class="body-view">
-          <slider value="{{currentCategory.maxNum}}" bindchange="slider4change" min="30" max="100" show-value />
-        </view>
-      </view>
     </view>
-
-
-
   </view>
+
+
   <view class="cart-bottom">
     <button class="cancel" type="default" bindtap='cancel'>取消</button>
     <button class="save" type="primary" bindtap='save'>保存</button>

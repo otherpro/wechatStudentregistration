@@ -6,7 +6,7 @@
     /* margin-top: 94rpx; */
     left:0;
     top:0;
-    height: 200rpx;
+    height: 150rpx;
     text-align: center;
     /* overflow: hidden; */
 }
@@ -130,9 +130,10 @@ margin-bottom:92rpx;
     background: #fff;
     height: 96rpx;
     border-bottom: 1px solid #d9d9d9;
+    text-align: center;
 }
 
-.form-item .courseName,.credit, .form-item .picker, .form-item .code{
+.form-item  text,input,picker{
     position: absolute;
     top: 26rpx;
     left: 0;

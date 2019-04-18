@@ -1,37 +1,36 @@
 <view class="container">
-<!-- 教师信息详情页 -->
+  <!-- 教师信息详情页 -->
+  
   <view class="cate-item">
     <view class="h">
-      <text class="courseName">{{currentCategory.courseName}}</text>
-      <text class="boxMessage">{{boxMessage}}</text>
+      <text class="courseName">{{currentCategory.teacherName}}</text>
     </view>
-    <view class='tui-countdown-content' >
-      剩余
-      <text class='tui-conutdown-box'>{{countDown.day}}</text>天
-      <text class='tui-conutdown-box'>{{countDown.hou}}</text>时
-      <text class='tui-conutdown-box'>{{countDown.min}}</text>分
-      <text class='tui-conutdown-box tui-countdown-bg'>{{countDown.sec}}</text>秒
+    <view class='tui-countdown-content'>
+      <text class='tui-conutdown-box'>id:{{currentCategory.tno}}</text>
     </view>
   </view>
-
 
   <view class="cate-detail">
     <view class="b">
-      <text class="desc">学分：{{currentCategory.credit}}</text>
-      <text class="desc">教室：{{currentCategory.room}}</text>
-      <text class="desc">教师：{{currentCategory.teacherName}}</text>
-      <text class="desc">节次：{{currentCategory.lesson}}</text>
-      <text class="desc">周次：{{currentCategory.week}}</text>
-      <text class="desc">课程人数：{{currentCategory.leftNum+"/"+currentCategory.maxNum}}</text>
-      <text class="desc">结束时间：{{currentCategory.endTime}}</text>
+      <view class="form-item">
+        <text class="desc">学院：{{academy.academyName}}</text>
+      </view>
+      <view class="form-item">
+        <text class="desc">电话：{{currentCategory.phone}}</text>
+      </view>
+      <view class="form-item">
+        <text class="desc">email：{{currentCategory.email}}</text>
+      </view>
+      <view class="form-item">
+        <text class="desc">教职状态：在职</text>
+      </view>
+      <!-- <text class="desc">简介：{{currentCategory.remarks}}</text> -->
     </view>
   </view>
 
-  <view class="cart-bottom" >
+  <view class="cart-bottom">
     <button class="edit" type="default" bindtap='cancel'>返回</button>
     <button class="delete" type="primary" bindtap='edit'>编辑</button>
   </view>
 
 </view>
-
-

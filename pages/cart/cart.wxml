@@ -1,12 +1,10 @@
 <view class="container">
-
   <!-- 判断为学生不显示form -->
-  <view wx:if="{{false}}">学生</view>
+  <view wx:if="{{myUserFlag==s}}">学生</view>
 
-  <form wx:else bindsubmit="formSubmit">
-
+  <form wx:else bindsubmit="formSubmit" bindreset="formReset">
     <!-- 判断是管理员 -->
-    <view wx:if="{{false}}" class="form-box">
+    <view wx:if="{{myUserFlag==a}}" class="form-box">
       <view class="title">
         <text>选课时间安排</text>
       </view>
@@ -25,9 +23,7 @@
           </view>
         </picker>
       </view>
-
       <view class="title"></view>
-
       <view class="form-item">
         <picker mode="date" value="{{dateEnd}}" data-end="1" start="2019-01-01" end="2020-01-01" bindchange="bindDateChange">
           <view class="picker">
@@ -44,34 +40,31 @@
       </view>
 
 
-
     </view>
-
     <!-- 判断是教师 -->
     <view wx:else class="form-box">
-
       <view class="form-item">
-        <input class="courseName" value="{{username}}" bindinput="bindUsernameInput" placeholder="课程名称" auto-focus/>
-        <image wx:if="{{ username.length > 0 }}" id="clear-username" class="clear" src="/static/images/clear_input.png" catchtap="clearInput"></image>
+        <input name="courseName" class="courseName" value="{{courseName}}" bindinput="bindUsernameInput" placeholder="课程名称" auto-focus/>
+        <image wx:if="{{ courseName.length > 0 }}" id="clear-username" class="clear" src="/static/images/clear_input.png" catchtap="clearInput"></image>
       </view>
       <view class="form-item">
-        <picker class="login-input" bindchange="bindCreditChange" value="{{indexCredit}}" range="{{credit}}">
+        <picker class="login-input" name="credit" bindchange="bindCreditChange" value="{{creditArray[indexCredit]}}" range="{{creditArray}}">
           <view class="picker">
-            {{credit[indexCredit]}}学分
+            {{creditArray[indexCredit]}}
           </view>
         </picker>
       </view>
       <view class="form-item">
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <picker mode="multiSelector" name="lesson" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiArray[1][multiIndex[1]]+multiArray[2][multiIndex[2]]}}" range="{{multiArray}}">
           <view class="picker">
-            周{{multiArray[0][multiIndex[0]]}}，星期{{multiArray[1][multiIndex[1]]}}，节次{{multiArray[2][multiIndex[2]]}}
+            {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
           </view>
         </picker>
       </view>
       <view class="form-item">
-        <picker class="login-input" bindchange="bindRoomChange" value="{{index}}" range="{{room}}">
+        <picker class="login-input" name="room" bindchange="bindRoomChange" value="{{roomArray[indexRoom]}}" range="{{roomArray}}">
           <view class="picker">
-            {{room[index]}}
+            {{roomArray[indexRoom]}}
           </view>
         </picker>
       </view>
@@ -79,16 +72,16 @@
       <view class="login-input">
         <text class="login-input">上课人数</text>
         <view class="body-view">
-          <slider bindchange="slider4change" min="30" max="100" show-value />
+          <slider bindchange="sliderchange" value="30" min="30" max="100" name="maxNum" show-value />
         </view>
       </view>
       <view class="form-item-textarea">
-        <textarea id="name" name="mobile" class="login-input" type="text" placeholder="简介" />
+        <textarea id="name" name="remarks" value="{{remarks}}" class="login-input" type="text" placeholder="简介" />
       </view>
     </view>
 
     <view class="cart-bottom">
-      <button class="reset" type="default" form-type="reset">清空</button>
+      <button class="reset" type="default" formType="reset">Reset</button>
       <button class="submit" type="primary" formType="submit">发布</button>
     </view>
   </form>

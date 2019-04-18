@@ -1,5 +1,9 @@
+<!-- 选课详情页  -->
+<!-- 时间判断 -->
+<!-- 学生显示选课判断  -->
+<!-- 教师判断是否自身课程以及时间进行编辑删除显示  不显示是否选课按钮-->
+<!-- 管理员及时间进行编辑删除显示 -->
 <view class="container">
-<!-- 选课详情页 -->
   <view class="cate-item">
     <view class="h">
       <text class="courseName">{{currentCategory.courseName}}</text>
@@ -35,8 +39,8 @@
   </view>
 
   <button class="courseSelect" type="primary" plain='true' hidden="{{courseHidden}}" bindtap="execution">选课</button>
-  <view class="cart-bottom" hidden="{{!courseHidden}}">
 
+  <view class="cart-bottom" hidden="{{!courseHidden}}">
     <button class="edit" type="default" bindtap='edit'>编辑</button>
     <button class="delete" type="warn" bindtap='delete'>删除</button>
   </view>
@@ -44,5 +48,3 @@
 
 
 </view>
-
-

@@ -28,7 +28,6 @@ Page({
   },
   startLogin: function () {
     var that = this;
-
     if (that.data.password.length < 1 || that.data.username.length < 1) {
       wx.showModal({
         title: '错误信息',
@@ -37,9 +36,8 @@ Page({
       });
       return false;
     }
-
     wx.request({
-      url: api.ApiRootUrl + 'auth/login',
+      url: api.AuthLoginByAccount,
       data: {
         username: that.data.username,
         password: that.data.password
@@ -49,29 +47,39 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        if(res.data.code == 200){
+        if (res.data.status == 200){
           that.setData({
             'loginErrorCount': 0
           });
-          app.globalData.userInfo = res.data.userInfo;
+          app.globalData.myUserInfo = res.data.myUserInfo;
           app.globalData.token = res.data.token;
-          wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo));
+          app.globalData.myUserFlag = res.data.myUserFlag;
+          wx.setStorageSync('myUserInfo', JSON.stringify(res.data.myUserInfo));
           wx.setStorageSync('token', res.data.token);
-          wx.setStorage({
-            key:"token",
-            data: res.data.data.token,
-            success: function(){
-              wx.switchTab({
+          wx.setStorageSync('myUserFlag', res.data.myUserFlag);
+          wx.switchTab({
                 url: '/pages/ucenter/index/index'
               });
-            }
-          });
+          // wx.setStorage({
+          //   key:"token",
+          //   data: res.token,
+          //   success: function(){
+          //     wx.switchTab({
+          //       url: '/pages/ucenter/index/index'
+          //     });
+          //   }
+          // });
+        }else{
+          wx.showModal({
+            title: 'message',
+            content: res.data.msg,
+            showCancel: false,
+          })
         }
       }
     });
   },
   bindUsernameInput: function (e) {
-
     this.setData({
       username: e.detail.value
     });

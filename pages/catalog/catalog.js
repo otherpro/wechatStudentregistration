@@ -14,7 +14,7 @@ Page({
     scrollHeight: 0
   },
   onLoad: function(options) {
-    this.getCatalog();
+   
 
   },
   getCatalog: function() {
@@ -33,22 +33,6 @@ Page({
       that.getCurrentCategory(that.data.currentAcademyId);
       wx.hideLoading();
     });
-    // util.request(api.CatalogList).then(function (res) {
-
-    //   that.setData({
-    //     navList: res.data.categoryList,
-    //     currentCategory: res.data.currentCategory
-    //   });
-    //   wx.hideLoading();
-    // });
-
-
-    // util.request(api.GoodsCount).then(function (res) {
-    //   that.setData({
-    //     goodsCount: res.data.goodsCount
-    //   });
-    // });
-
   },
   getCurrentCategory: function(id) {
     let that = this;
@@ -67,21 +51,13 @@ Page({
   },
   onShow: function() {
     // 页面显示
+    this.getCatalog();
   },
   onHide: function() {
     // 页面隐藏
   },
   onUnload: function() {
     // 页面关闭
-  },
-  getList: function() {
-    var that = this;
-    util.request(api.ApiRootUrl + 'api/catalog/' + that.data.currentCategory.cat_id)
-      .then(function(res) {
-        that.setData({
-          categoryList: res.data,
-        });
-      });
   },
   switchCate: function(event) {
     var that = this;

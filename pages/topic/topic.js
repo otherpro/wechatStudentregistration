@@ -1,8 +1,9 @@
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
-
+var app = getApp();
 Page({
   data: {
+    myUserFlag: "",
     navList: [], //分类(多个对象)
     currentAcademyId: 0,
     categoryList: [], //分类二
@@ -17,8 +18,6 @@ Page({
   },
   onLoad: function(options) {
     this.initGrade();
-    this.getCatalog("2019-2020-1");
-   
   },
   getCatalog: function(grade) {
     //CatalogList
@@ -56,7 +55,6 @@ Page({
     this.setData({
       grade: gradeTemp,
     });
-    
   },
   bindGradeChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value);
@@ -72,6 +70,10 @@ Page({
   },
   onShow: function() {
     // 页面显示
+    this.getCatalog("2019-2020-1");
+    this.setData({
+      myUserFlag: app.globalData.myUserFlag,
+    });
   },
   onHide: function() {
     // 页面隐藏
@@ -79,15 +81,6 @@ Page({
   onUnload: function() {
     // 页面关闭
   },
-  switchCate: function(event) {
-    var that = this;
-    var currentTarget = event.currentTarget;
-    if (this.data.currentAcademyId == event.currentTarget.dataset.id) {
-      return false;
-    }
-    this.getCurrentCategory(event.currentTarget.dataset.id);
-
-  }
 })
 
 
